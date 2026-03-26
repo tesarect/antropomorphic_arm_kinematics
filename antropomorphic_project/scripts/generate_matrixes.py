@@ -71,7 +71,7 @@ def main(args=None):
 
     preview(robot_arm_DH.A12, viewer='file', filename="A12.png", dvioptions=['-D','300'])
     preview(robot_arm_DH.A23, viewer='file', filename="A23.png", dvioptions=['-D','300'])
-    preview(robot_arm_DH.A03_simplify, viewer='file', filename="A03_simplify.png", dvioptions=['-D','300'])
+    preview(robot_arm_DH._A03_simplify, viewer='file', filename="A03_simplify.png", dvioptions=['-D','300'])
 
 if __name__ == '__main__':
     main()
