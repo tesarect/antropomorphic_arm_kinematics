@@ -85,9 +85,13 @@ class ComputeIk():
         possible  = theta2_ok and theta3_ok
 
         if verbose:
-            print(f"theta2_config={theta2_config}, theta3_config={theta3_config}")
-            print(f"Px={Px}, Py={Py}, Pz={Pz}, r2={r2}, r3={r3}")
-            print(f"C3={C3:.4f}, S3={S3:.4f}")
+            print("Input Data===== theta_2_config =", theta2_config)
+            print("Input Data===== theta_3_config =", theta3_config)
+            print("Pee_x =", Pee_x)
+            print("Pee_y =", Pee_y)
+            print("Pee_z =", Pee_z)
+            print("r2 =", r2)
+            print("r3 =", r3)
             print(f"theta1={theta1:.4f}, theta2={theta2:.4f}, theta3={theta3:.4f}")
             if not theta2_ok:
                 print(f">>> theta2 NOT POSSIBLE: {theta2:.4f} outside [{-pi/4:.4f}, {3*pi/4:.4f}]")
@@ -97,11 +101,11 @@ class ComputeIk():
         return [theta1, theta2, theta3], possible
 
 
-def calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="plus-plus"):
+def calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="plus-plus", verbose=False):
     ik = ComputeIk(DH_parameters=DH_parameters)
     end_effector_pose = EndEffectorWorkingSpace(Pee_x=Pee_x, Pee_y=Pee_y, Pee_z=Pee_z)
     thetas, possible = ik.compute_ik(end_effector_pose=end_effector_pose,
-                                     elbow_config=elbow_config)
+                                     elbow_config=elbow_config, verbose=verbose)
     print(f"Angles thetas solved ={thetas} , solution possible = {possible}")
     return thetas, possible
 
@@ -111,7 +115,7 @@ if __name__ == '__main__':
 
     Pee_x, Pee_y, Pee_z = 0.5, 0.6, 0.7
 
-    calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="plus-plus")
-    calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="plus-minus")
-    calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="minus-plus")
-    calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="minus-minus")
+    calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="plus-plus", verbose=True)
+    calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="plus-minus", verbose=True)
+    calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="minus-plus", verbose=True)
+    calculate_ik(Pee_x, Pee_y, Pee_z, DH_parameters, elbow_config="minus-minus", verbose=True)
